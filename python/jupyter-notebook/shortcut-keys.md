@@ -1,13 +1,8 @@
-# Jupyter Notebook
-
-웹에서 실행할 수 있는 파이썬 대화형 인터프리터
+# Shortcut Keys
 
 
-
-### Shortcut keys
 
 ```bash
-
 H : 단축키 목록 출력
 A : 상단 셀 생성
 B : 하단 셀 생성
@@ -21,6 +16,6 @@ alt + Enter : 실행 + 다음 셀 생성
 M : 마크다운 셀로 변경
 Y : 코드 셀로 변경
 ctrl + s or S : 저장
-
+함수클릭 + shift + tab : Docstring
 ```
 
