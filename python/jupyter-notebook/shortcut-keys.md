@@ -17,5 +17,6 @@ M : 마크다운 셀로 변경
 Y : 코드 셀로 변경
 ctrl + s or S : 저장
 함수클릭 + shift + tab : Docstring
+ctrl + shift + - : 셀 나누기
 ```
 
