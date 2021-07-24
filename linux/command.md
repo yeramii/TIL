@@ -73,3 +73,16 @@ touch <file name>
 rm <file name>
 ```
 
+
+
+### 실행
+
+##### start
+
+* 파일을 지정된 응용프로그램으로 실행
+* `.` 을 하면 현재 위치한 폴더를 실행
+
+```bash
+start <file name>
+```
+

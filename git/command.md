@@ -34,6 +34,7 @@ git status
 ##### log
 
 * 커밋의 히스토리를 보여주는 명령어
+* `--oneline` 을 뒤에 붙이면 짧은 버전으로 볼 수 있다.
 
 ```bash
 git log
