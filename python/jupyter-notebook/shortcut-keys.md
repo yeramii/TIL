@@ -1,5 +1,7 @@
 # Shortcut Keys
 
+> jupyter notebook의 단축키 정리
+
 
 
 ```bash
