@@ -2,11 +2,11 @@
 
 > 리눅스 기본 명령어 정리
 
-
+<br>
 
 ### 이동
 
-##### pwd (print working directory)
+#### pwd (print working directory)
 
 * 현재 나의 위치를 확인하는 명령어
 
@@ -16,7 +16,7 @@ pwd
 
 
 
-##### ls (list)
+#### ls (list)
 
 * 현재 나의 위치에 있는 파일과 폴더들을 보여주는 명령어
   * `-a` 옵션을 사용하면 숨김폴더, 파일까지 확인할 수 있다. 
@@ -28,7 +28,7 @@ ls
 
 
 
-##### cd (change directory)
+#### cd (change directory)
 
 * 해당 위치로 이동하는 명령어
   * `..`은 상위 폴더를 의미한다.
@@ -37,11 +37,11 @@ ls
 cd <folder name>
 ```
 
-
+<br>
 
 ### 생성
 
-##### mkdir (make directory)
+#### mkdir (make directory)
 
 * 폴더를 생성하는 명령어
 
@@ -51,7 +51,7 @@ mkdir <folder name>
 
 
 
-##### touch
+#### touch
 
 * 파일을 생성하는 명령어
 
@@ -59,11 +59,11 @@ mkdir <folder name>
 touch <file name>
 ```
 
-
+<br>
 
 ### 삭제
 
-##### rm (remove)
+#### rm (remove)
 
 * 파일 삭제
   * 폴더를 삭제하기 위해서는 `-r` 옵션을 정해줘야 함 (recursive)
@@ -73,11 +73,11 @@ touch <file name>
 rm <file name>
 ```
 
-
+<br>
 
 ### 실행
 
-##### start
+#### start
 
 * 파일을 지정된 응용프로그램으로 실행
 * `.` 을 하면 현재 위치한 폴더를 실행

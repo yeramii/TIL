@@ -1,4 +1,4 @@
-## Operator Precedence
+# Operator Precedence
 
 0. ()
 1. Slicing

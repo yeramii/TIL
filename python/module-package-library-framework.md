@@ -8,7 +8,7 @@
 
 * Python 에서는 한 개의 ".py" 파일
 
-  
+ <br> 
 
 ### Package
 
@@ -20,7 +20,7 @@
 
 * import 모듈 : 특정 모듈 전체를 import
 
-
+<br>
 
 ### Library
 
@@ -31,10 +31,9 @@
 * 모듈 하나만 있어도, Library라고 할 수 있다.
 
 
-
 #### => Module < Package < Library
 
-
+<br>
 
 ### Framework
 

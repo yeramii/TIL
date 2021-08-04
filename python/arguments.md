@@ -2,43 +2,43 @@
 
 >  함수는 입력값(input)으로 인자(arguments)를 넘겨줄 수 있다.
 
-
+<br>
 
 ### 종류
 
-##### Positional Arguments (위치 인자)
+#### Positional Arguments (위치 인자)
 
 * 기본적으로 인자는 위치에 따라 함수 내에 전달된다.
 
 
 
-##### Default Argument Values (기본 인자 값)
+#### Default Argument Values (기본 인자 값)
 
 * 함수를 정의할 때, 기본값을 지정하여 정의된 것보다 더 적은 개수의 인자들로 호출될 수 있다.
 * 단, 기본 인자 값을 가지는 인자 다음에 기본 값이 없는 인자를 사용할 수는 없다. (함수를 정의할 때)
 
 
 
-##### Keyword Arguments (키워드 인자)
+#### Keyword Arguments (키워드 인자)
 
 * 함수를 호출할 때, 키워드 인자를 활용하여 직접 변수의 이름으로 특정 인자를 전달할 수 있다.
 * 단, 키워드 인자를 활용한 다음에 위치 인자를 활용할 수는 없다. (함수를 호출할 때)
 
 
 
-##### Arbitrary Argument Lists (가변 인자 리스트)
+#### Arbitrary Argument Lists (가변 인자 리스트)
 
 * 개수가 정해지지 않은 임의의 인자를 받기 위해서는 함수를 정의할 때 가변 인자 리스트 `*args`를 활용한다.
 * 가변 인자 리스트를 `tuple` 형태로 처리가 되며, 매개변수에 `*`로 표현한다.
 
 
 
-##### Arbitrary Keyword Arguments (가변 키워드 인자)
+#### Arbitrary Keyword Arguments (가변 키워드 인자)
 
 * 정해지지 않은 키워드 인자들은 함수를 정의할 때 가변 키워드 인자 `**kwargs` 를 활용한다.
 * 가변 키워드 인자는 `dict` 형태로 처리가 되며, 매개변수에 `**`로 표현한다.
 
-
+<br>
 
 ### 순서
 
