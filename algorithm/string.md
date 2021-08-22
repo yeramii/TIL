@@ -197,6 +197,28 @@ def KMPSearch(p, t):
 * 시간복잡도 : 최악은 O(mn), 최선은 O(n) 이하.
 
 ```python
+def BoyerMoore(p, t):
+    """
+    텍스트에서 패턴을 찾으면 해당 인덱스를 출력한다.
+
+    :param p: 찾을 패턴
+    :param t: 전체 텍스트
+    :return: 없음
+    """
+    skip = p[::-1]
+
+    i = len(p) - 1
+    while i < len(t):
+        if t[i] == p[-1] and t[i-len(p)+1 : i+1] == p:
+            print("Found pattern at index " + str(i-len(p)+1))
+            i += len(p)
+            continue
+        for idx, char in enumerate(skip):
+            if char == t[i]:
+                i += idx
+                break
+            if char != t[i] and idx == len(p)-1:
+                i += len(p)
 ```
 
 
