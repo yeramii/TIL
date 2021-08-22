@@ -42,7 +42,7 @@ def CountingSort(lst):
     :return: (오름차순) 정렬된 리스트
     """
     counts = [0] * (max(lst) + 1)
-    sorted = lst[:]
+    sorted_lst = [0] * len(lst)
 
     # 각 숫자가 몇 개 들어있는지
     for n in lst:
@@ -55,9 +55,9 @@ def CountingSort(lst):
     # 리스트를 돌며 알맞은 위치에 저장
     for n in lst:
         counts[n] -= 1
-        sorted[counts[n]] = n
+        sorted_lst[counts[n]] = n
 
-    return sorted
+    return sorted_lst
 ```
 
 <br>
