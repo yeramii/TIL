@@ -154,7 +154,7 @@ print(subset)
       """
       start = 0
       end = len(lst) - 1
-      while start <= end:
+      while start < end:
           middle = (start + end) // 2
           if lst[middle] == key:
               return middle
