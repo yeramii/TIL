@@ -1,10 +1,10 @@
-## Array
+# Array
 
 일정한 자료형의 변수들을 하나의 이름으로 열거하여 사용하는 자료구조
 
 <br>
 
-#### Array Iterations
+### Array Iterations
 
 * n x m 배열의 n * m 개의 모든 원소를 빠짐없이 조사하는 방법
 
@@ -53,7 +53,7 @@
 
 <br>
 
-#### Subset
+### Subset
 
 * 집합의 원소가 n개일 때, 공집합을 포함한 부분집합의 수는 2n개
 
@@ -89,7 +89,7 @@ print(subset)
 
 <br>
 
-#### Search
+### Search
 
 * 저장되어 있는 자료 중에서 원하는 항목을 찾는 작업
 
@@ -191,16 +191,16 @@ print(subset)
 
 <br>
 
-#### Exhaustive Search
+### Exhaustive Search
 
 * 문제의 해법으로 생각할 수 있는 모든 경우의 수를 나열해보고 확인하는 기법
 
-#### Greedy Algorithm
+### Greedy Algorithm
 
 * 최적 해를 구하는데 사용되는 근시안적인 방법
 * 그 순간에 최적이라고 생각되는 것을 선택해 나가는 방식
 
-#### Selection Algorithm
+### Selection Algorithm
 
 * 저장되어 있는 자료로부터 k번째로 큰/작은 원소를 찾는 방법
 * 자료를 정렬한 후, 원하는 순서에 있는 원소를 가져오는 과정으로 이뤄진다.
