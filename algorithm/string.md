@@ -1,4 +1,4 @@
-## String
+# String
 
 * python에서, 시퀀스 자료형으로 분류되고, 시퀀스 자료형에서 사용할 수 있는 인덱싱, 슬라이싱 연산을 사용할 수 있다.
 * java에서, 문자열 데이터를 저장, 처리해주는 String 클래스를 제공한다.
@@ -6,7 +6,7 @@
 
 <br>
 
-### Pattern matching
+## Pattern matching
 
 * 데이터를 검색할 때 특정 패턴이 출현하는지, 또한 어디에 출현하는지 등을 특정하는 방법
 
@@ -18,7 +18,7 @@
 
 <br>
 
-#### Brute Force algorithm
+### Brute Force algorithm
 
 * 본문 문자열을 처음부터 끝까지 차례대로 순회하면서 패턴 내의 문자들을 일일히 비교
 * 시간복잡도 : O(mn)
@@ -76,19 +76,19 @@ def BruteForce_2(p, t):
 
 <br>
 
-#### Rabin-Karp algorithm
+### Rabin-Karp algorithm
 
 * 시간복잡도 : O(m + n)
 
 <br>
 
-#### KMP algorithm
+### KMP algorithm
 
 * 불일치가 발생한  앞 부분을 이미 알고 있으므로, 앞 부분에 대해선 다시 비교하지 않음
 * 패턴을 전처리하여 배열 next[M]을 구해서 잘못된 시작을 최소화
 * 시간복잡도 : O(m + n)
 
-##### 사전 지식
+#### 사전 지식
 
 * Degenerate pattern : 어떤 패턴 속에 있는 작은 패턴이 한 번 이상 반복되는 현상
 
@@ -116,7 +116,7 @@ def BruteForce_2(p, t):
   lps = [0, 0, 0, 1, 2]
 ```
 
-##### 코드
+#### 코드
 
 ```python
 def computeLPS(p, lps):
@@ -189,7 +189,7 @@ def KMPSearch(p, t):
 
 <br>
 
-#### Boyer-Moore algorithm
+### Boyer-Moore algorithm
 
 * 오른쪽에서 왼쪽으로 비교
 * 텍스트 문자를 다 보지 않아도 된다.
