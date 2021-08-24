@@ -1,10 +1,10 @@
-## Sort
+# Sort
 
 2개 이상의 자료를 특정 기준에 의해 작은 값부터 큰 값(ascending), 혹은 그 반대의 순서대로 (descending) 재배열 하는 것
 
 <br>
 
-#### Bubble Sort
+### Bubble Sort
 
 * 인접한 두 개의 원소를 비교하며 자리를 계속 교환하는 방식
 * 가장 큰 원소를 맨 마지막으로 밀어내는 단계를 반복한다.
@@ -27,7 +27,7 @@ def BubbleSort(lst):
 
 <br>
 
-#### Counting Sort
+### Counting Sort
 
 * 항목들의 순서를 결정하기 위해 집합에 각 항목이 몇 개씩 있는지 세는 작업을 하여, 선형 시간에 정렬하는 효율적인 알고리즘
 * 정수나 정수로 표현할 수 있는 자료에 대해서만 적용 가능
@@ -62,7 +62,7 @@ def CountingSort(lst):
 
 <br>
 
-#### Selection Sort
+### Selection Sort
 
 * 주어진 자료들 중 가장 작은 값의 원소부터 차례대로 선택하여 위치를 교환하는 방식
 * 시간복잡도 : O(n^2)
