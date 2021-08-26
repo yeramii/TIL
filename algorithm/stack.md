@@ -1,4 +1,4 @@
-## Stack
+# Stack
 
 자료를 쌓아올리는 방식으로 저장하는 방법
 
@@ -21,21 +21,22 @@
   * 삭제 : `pop`
   * 공백인지 아닌지 확인 : `isEmpty` => `len`
   * `top`에 있는 item 반환 : `peek` => `[-1]`
+  
 * `top` (= stack pointer) 을 이용해야 동작이 빠르다. 
 
-```python
-# push : top을 하나 올리고 그 위치에 삽입
-def push(n):
-	top += 1
-	stack[top] = n
-
-# pop : top 위치 원소를 빼고 top 하나 내림
-# 지우는 동작은 따로 하지 않아도 된다. (어차피 push가 새로 덮어쓰니까)
-def pop():
-	# 보통 여기서 len = 0 검사하지 않고, pop을 쓰기 전에 있는지 검사한다.
-	top -= 1
-	return stack[top + 1]
-```
+  ```python
+  # push : top을 하나 올리고 그 위치에 삽입
+  def push(n):
+  	top += 1
+  	stack[top] = n
+  
+  # pop : top 위치 원소를 빼고 top 하나 내림
+  # 지우는 동작은 따로 하지 않아도 된다. (어차피 push가 새로 덮어쓰니까)
+  def pop():
+  	# 보통 여기서 len = 0 검사하지 않고, pop을 쓰기 전에 있는지 검사한다.
+  	top -= 1
+  	return stack[top + 1]
+  ```
 
 * 사용 데이터
   * 1차원 배열
@@ -169,7 +170,7 @@ def pop():
 
 * 가장 마지막에 만났던 갈림길의 정점으로 되돌아가서, 다시 깊이우선탐색을 반복해야 하므로 LIFO 구조의 stack 활용
 
-* 구현
+#### 구현
 
   1. 시작 정점 v를 결정하여 방문
 
@@ -320,7 +321,6 @@ def checknode(v):
 ```
 
 <br>
-
 
 
 
