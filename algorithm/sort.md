@@ -87,3 +87,59 @@ def SelectionSort(lst):
 
 <br>
 
+### Merge Sort
+
+* 하나의 배열을 절반으로 나눈 후, 각 작은 배열을 재귀적으로 정렬하고, 그 결과를 Merge 한다.
+* 시간복잡도 : O(nlogn)
+
+```python
+def MergeSort(lst):
+    """
+    반으로 나눠 정렬하고, 정렬된 두 리스트를 합친다.
+
+    :param lst: 정렬할 리스트
+    :return: (오름차순) 정렬된 리스트
+    """
+    if len(lst) <= 1:
+        return lst
+
+    mid = len(lst)//2
+    left = MergeSort(lst[:mid])
+    right = MergeSort(lst[mid:])
+
+    return merge(left, right)
+
+
+def merge(left, right):
+    """
+    두 리스트의 맨 앞부터 비교해가며 작은 수를 결과 리스트레 저장한다.
+
+    :param left: 정렬된 리스트 1
+    :param right: 정렬된 리스트 2
+    :return: 두 리스트가 합쳐져 정렬된 리스트
+    """
+    sorted_lst = []
+    i = 0
+    j = 0
+
+    while i < len(left) and j < len(right):
+        if left[i] < right[j]:
+            sorted_lst.append(left[i])
+            i += 1
+        else:
+            sorted_lst.append(right[j])
+            j += 1
+
+    while i < len(left):
+        sorted_lst.append(left[i])
+        i += 1
+
+    while j < len(right):
+        sorted_lst.append(right[j])
+        j += 1
+
+    return sorted_lst
+```
+
+![image-20210929015315466](sort.assets/image-20210929015315466.png)
+
