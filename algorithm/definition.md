@@ -28,21 +28,7 @@
   * 시간 복잡도 함수 중에서 가장 큰 영향력을 주는 n에 대한 항만을 표시
   * 계수는 생략
 
-$$ {yeram}
-O(n!) > O(2^n) >>>>> O(n^2) >>>>> O(nlogn) >>>>> O(n) > O(logn)
-$$ {/yeram}
-
-$$
-O(n!) > O(2^n) >>>>> O(n^2) >>>>> O(nlogn) >>>>> O(n) > O(logn)
-$$
 
 
-
-
-
-<script type="text/javascript" 
-src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML">
-    O(n!) > O(2^n) >>>>> O(n^2) >>>>> O(nlogn) >>>>> O(n) > O(logn)
-
-</script>
+<img src="definition.assets/image-20210928213316171.png" alt="image-20210928213316171" style="zoom:67%;" />
 
