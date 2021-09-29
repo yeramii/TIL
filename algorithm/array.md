@@ -93,7 +93,9 @@ print(subset)
 
 * 저장되어 있는 자료 중에서 원하는 항목을 찾는 작업
 
-* 순차 검색(sequential search)
+* 종류 : 순차 검색, 이진 검색, 해쉬
+
+#### 순차 검색(sequential search)
 
   * 일렬로 되어 있는 자료를 순서대로 검색하는 방법
   * 시간복잡도 : O(n)
@@ -136,58 +138,58 @@ print(subset)
           return -1
   ```
 
-* 이진 검색(binary search)
+#### 이진 검색(binary search)
 
-  * 자료의 가운데에 있는 항목의 키 값과 비교하여 다음 검색의 위치를 결정하고 검색을 계속 진행하는 방법
-  * 자료가 항상 정렬된 상태를 유지해야 한다.
-  * 시간복잡도 : O(log n)
+* 자료의 가운데에 있는 항목의 키 값과 비교하여 다음 검색의 위치를 결정하고 검색을 계속 진행하는 방법
+* 자료가 항상 정렬된 상태를 유지해야 한다.
+* 시간복잡도 : O(log n)
 
-  ```python
-  # 3. 이진 검색 (binary search)
-  def binarySearch_1(lst, key):
-      """
-      검색 범위를 반으로 줄여가며 보다 빠르게 검색을 수행한다.
-      
-      :param lst: 주어진 리스트
-      :param key: 찾을 항목
-      :return: 찾은 경우, 항목의 인덱스(idx). 못 찾은 경우, -1.
-      """
-      start = 0
-      end = len(lst) - 1
-      while start < end:
-          middle = (start + end) // 2
-          if lst[middle] == key:
-              return middle
-          elif lst[middle] > key:
-              end = middle
-          else:
-              start = middle
-      return -1
-  
-  # 4. 이진 검색 (binary search) - 재귀 함수 이용
-  def binarySearch_2(lst, low, high, key):
-      """
-      검색 범위를 반으로 줄여가며 보다 빠르게 검색을 수행한다.
-      
-      :param lst: 주어진 리스트
-      :param low: 찾을 범위의 하한
-      :param high: 찾을 범위의 상한
-      :param key: 찾을 항목
-      :return: 찾은 경우, 항목의 인덱스(idx). 못 찾은 경우, -1.
-      """
-      if low > high:
-          return -1
-      else:
-          middle = (low + high) // 2
-          if key == lst[middle]:
-              return middle
-          elif key < lst[middle]:
-              return binarySearch_2(lst, low, middle, key)
-          elif lst[middle] < key:
-              return binarySearch_2(lst, middle, high, key)
-  ```
+```python
+# 3. 이진 검색 (binary search)
+def binarySearch_1(lst, key):
+    """
+    검색 범위를 반으로 줄여가며 보다 빠르게 검색을 수행한다.
+    
+    :param lst: 주어진 리스트
+    :param key: 찾을 항목
+    :return: 찾은 경우, 항목의 인덱스(idx). 못 찾은 경우, -1.
+    """
+    start = 0
+    end = len(lst) - 1
+    while start < end:
+        middle = (start + end) // 2
+        if lst[middle] == key:
+            return middle
+        elif lst[middle] > key:
+            end = middle
+        else:
+            start = middle
+    return -1
 
-* 해쉬(hash)
+# 4. 이진 검색 (binary search) - 재귀 함수 이용
+def binarySearch_2(lst, low, high, key):
+    """
+    검색 범위를 반으로 줄여가며 보다 빠르게 검색을 수행한다.
+    
+    :param lst: 주어진 리스트
+    :param low: 찾을 범위의 하한
+    :param high: 찾을 범위의 상한
+    :param key: 찾을 항목
+    :return: 찾은 경우, 항목의 인덱스(idx). 못 찾은 경우, -1.
+    """
+    if low > high:
+        return -1
+    else:
+        middle = (low + high) // 2
+        if key == lst[middle]:
+            return middle
+        elif key < lst[middle]:
+            return binarySearch_2(lst, low, middle, key)
+        elif lst[middle] < key:
+            return binarySearch_2(lst, middle, high, key)
+```
+
+#### 해쉬(hash)
 
 <br>
 
