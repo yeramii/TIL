@@ -39,8 +39,8 @@ def BruteForce_1(p, t):
         for j in range(M):
             if t[i + j] != p[j]:
                 break
-        if j == M - 1:
-            return i
+            if j == M - 1:
+                return i
     return -1
 
 
@@ -48,7 +48,7 @@ def BruteForce_1(p, t):
 def BruteForce_2(p, t):
     """
     모든 인덱스를 순회하며 패턴을 있는대로 찾는다.
-    
+
     :param p: 찾을 패턴
     :param t: 전체 텍스트
     :return: 패턴을 찾으면 모든 패턴의 시작 인덱스(list), 못 찾으면 -1.
@@ -59,13 +59,15 @@ def BruteForce_2(p, t):
     i = 0
 
     while i <= N - M:
+        is_find = False
         for j in range(M):
             if t[i + j] != p[j]:
                 break
-        if j == M - 1:
-            lst.append(i)
-            i += M
-        else:
+            if j == M - 1:
+                lst.append(i)
+                i += M
+                is_find = True
+        if not is_find:
             i += 1
 
     if lst == []:
