@@ -63,6 +63,8 @@
   * 함수 호출이 발생하면 함수 수행에 필요한 지역변수, 매개변수 및 수행 후 복귀할 주소 등의 정보를 stack frame에 저장하여 system stack에 삽입
   * 함수 실행이 끝나면 system stack의 top원소 (stack frame)를 삭제(pop)하면서 프레임에 저장되어 있던 복귀 주소를 확인하고 복귀
   * 위 과정의 반복으로 전체 프로그램 수행이 종료되면 system stack은 공백 스택이 된다.
+  
+  <img src="stack.assets/image-20210929225517129.png" alt="image-20210929225517129" style="zoom: 80%;" />
 
 <br>
 
@@ -77,7 +79,7 @@
 * 피보나치 수를 구하는 함수
 
   * 엄청난 중복호출이 존재
-  * 시간 복잡도 : O(n^2) = 오메가(n^2)
+  * 시간 복잡도 : Ο(2^n) = Ω(2^n) => Θ(2^n)
 
   ```python
   def fibo(n):
@@ -88,8 +90,8 @@
       else:
           return fibo(n-1) + fibo(n-2)
   
-  cnt = 0
-  print(fibo(20), cnt)
+  cnt = 0  # 호출 수
+  print(fibo(20), cnt)  # 6765 21891
   ```
 
 <br>
@@ -107,15 +109,17 @@
   ```python
   n = 20
   
-  # 1. stack의 크기가 정해져 있지 않은 경우
+  ## 1. stack의 크기가 정해져 있지 않은 경우
   def fibo1(n):
+      global cnt
+      cnt += 1
       if n >= 2 and len(memo1) <= n:
           memo1.append(fibo1(n-1) + fibo1(n-2))
       return memo1[n]
   
+  cnt = 0
   memo1 = [0, 1]
-  print(fibo1(n))
-  
+  print(fibo1(n), cnt)  # 6765 39
   
   # 2. stack의 크기가 미리 정해져 있는 경우 - better
   def fibo2(n):
@@ -129,7 +133,7 @@
   memo2[0] = 0
   memo2[1] = 1
   cnt = 0
-  print(fibo2(n), cnt)
+  print(fibo2(n), cnt)  # 6765 39
   ```
 
 <br>
@@ -140,15 +144,16 @@
 
 * 구현
 
-  1. 입력 크기가 작은 부분 문제들을 모두 해결
-  2. 그 해들을 이용하여 보다 큰 크기의 부분 문제들을 해결
-  3. 최종적으로 원해 주어진 입력의 문제를 해결
+  1. 문제를 부분 문제로 분할한다.
+  2. 부분 문제로 나누는 일을 끝낸 후, 가장 작은 부분 문제부터 해를 구한다.
+  3. 그 결과는 테이블에 저장하고, 테이블에 저장된 부분 문제의 해를 이용하여 상위 문제의 해를 구한다.
 
 * 피보나치 수를 구하는 함수
 
   * memoization과 달리, 재귀 없이 테이블에서 값을 가져온다.
   * memoization을 재귀적 구조에 사용하는 것 (recursive)보다, 반복적 구조로 DP를 구현한 것 (iterative)이 성능 면에서 보다 효율적이다.
-
+  * 재귀적 구조는 내부에 시스템 호출 스택을 사용하는 오버헤드가 발생하기 때문이다.
+  
   ```python
   def fibo(n):
       table[0] = 0
@@ -165,6 +170,10 @@
 <br>
 
 ### DFS (Depth First Search, 깊이우선탐색)
+
+* 비선형구조인 graph는 모든 자료를 빠짐없이 검색하는 것이 중요
+  * 방법 : DFS, BFS
+  * 반대로는, 선형구조인 table
 
 * 시작 정점의 한 방향으로 깊이 탐색해 가다가 더 이상 갈 곳이 없게 되면, 가장 마지막에 만났던 갈림길 간선이 있는 정점으로 되돌아와서 다른 방향의 정점으로 탐색을 계속 반복하여 결국 모든 정점을 방문하는 순회 방법
 
@@ -185,29 +194,27 @@
   ```python
   # V => 노드, 정점
   # E => 엣지, 간선
-  V, E = list(map(int, input().split()))
+  V, E = map(int, input().split())
   
   # E 쌍의 개수 들어옴 -> 2 * E 개
-  graph_list = list(map(int, input().split()))
-  
-  graph = [[0 for _ in range(V + 1)] for _ in range(V + 1)]
-  visited = [0 for _ in range(V + 1)]
+  edges = list(map(int, input().split()))
+  graph = [[0] * (V + 1) for _ in range(V + 1)]
   
   for i in range(E):
-      start = graph_list[2*i]
-      end = graph_list[2*i + 1]
-  
-      graph[start][end] = 1
-      graph[end][start] = 1
+      n1 = edges[2*i]
+      n2 = edges[2*i + 1]
+      graph[n1][n2] = 1
+      graph[n2][n1] = 1
   
   def dfs(v):
-      global graph, visited, V
+      stack = []
+      visited = [0] * (V + 1)
   
       # stack에 시작점을 넣고 시작
-      stack = [v]
+      stack.append(v)
   
       # stack이 비어있지 않다면 계속해서 DFS 진행
-      while len(stack):
+      while stack:
           # 가장 최근에 넣었던 위치를 빼온다
           v = stack.pop()
   
@@ -220,10 +227,10 @@
               # 시작점을 기준으로 한 줄 반복 (0번 노드는 없으니 1부터 시작)
               for w in range(1, V + 1):
                   # 간선이 있고, 방문하지 않았다면
-                  if graph[v][w] == 1 and visited[w] == 0:
+                  if graph[v][w] and not visited[w]:
                       # 스택에 추가
                       stack.append(w)
-  
+                      
   # dfs를 1번 노드를 기준으로 탐색
   dfs(1)
   ```
@@ -258,7 +265,7 @@
 
    1) token이 stack의 top에 저장된 연산자보다 우선순위가 높으면 stack에 push
 
-   2) 그렇지 않다면 stack의 top의 연산자의 우선순위가 token의 우선순위가 작을 때까지 stack에서 pop한 후 token의 연산자를 push
+   2) 그렇지 않다면 stack의 top의 연산자의 우선순위가 token의 우선순위보다 작을 때까지 stack에서 pop한 후 token의 연산자를 push
 
       (top에 연산자가 없다면 push)
 
@@ -290,6 +297,8 @@ icp = {'*': 2, '/': 2, '+': 1, '-': 1, '(': 3}
 
 #### 특징
 
+* 모든 후보를 검사하지 X !
+
 * 어떤 노드의 유망성을 점검한 후에, 유망(promising)하지 않다고 결정되면 부모 노드로 되돌아가(backtracking) 다음 자식 노드로 간다.
 * 어떤 노드를 방문했을 때, 그 노드를 포함한 경로가 해답이 될 가능성이 있으면 유망한 노드이다.
 * prunning : 유망하지 않은 노드가 포함되는 경로는 더 이상 고려하지 않는다.
@@ -300,7 +309,10 @@ icp = {'*': 2, '/': 2, '+': 1, '-': 1, '(': 3}
 
 * Backtracking은 어떤 노드에서 출발하는 경로가 해결책으로 이어질 것 같지 않으면 더 이상 그 경로를 따라가지 않음 (prunning)으로써 시도의 횟수를 줄인다.
 * DFS가 모든 경로를 추적하는데 비해 Backtracking은 불필요한 경로를 조기에 차단한다. (DFS에 조건 추가)
-* Backtracking을 적용하면 일반적으로 경우의 수가 줄어들지만, 이 역시 최악의 경우에는 지수적인 시간을 필요로 한다. (DFS의 차선책)
+* Backtracking을 적용하면 일반적으로 경우의 수가 줄어들지만, 이 역시 최악의 경우에는 지수함수 시간을 필요로 한다. (DFS의 차선책)
+* 요약
+  * Backtracking : 한 node 갈 때마다 검사
+  * DFS : 모든 node 조합의 경우의 수를 검사
 
 #### 과정
 
