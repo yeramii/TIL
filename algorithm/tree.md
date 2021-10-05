@@ -24,7 +24,7 @@
 
 #### 순회 (traversal)
 
-트리의 노드들을 체계적으로 방문하는 것
+트리의 노드들을 체계적으로 중복되지 않게 전부 방문하는 것
 
 * 전위 순회 (preorder traversal)
   * 부모노드 방문 후, 자식노드를 좌, 우 순서로 방문한다.
@@ -41,21 +41,21 @@
 * 구현
 
   ```python
-  # 1. 전위 순회
+  # 1. 전위 순회 : VLR
   def preorder_traverse(v):
       if v in range(1, V + 1):
           print(v, end=' ')
           preorder_traverse(left[v])
           preorder_traverse(right[v])
   
-  # 2. 중위 순회
+  # 2. 중위 순회 : LVR
   def inorder_traverse(v):
       if v in range(1, V + 1):
           inorder_traverse(left[v])
           print(v, end=' ')
           inorder_traverse(right[v])
   
-  # 3. 후위 순회
+  # 3. 후위 순회 : LRV
   def postorder_traverse(v):
       if v in range(1, V + 1):
           postorder_traverse(left[v])
@@ -63,9 +63,9 @@
           print(v, end=' ')
   
   
-  # 정점의 갯수와 간선 리스트를 입력 받고, 트리 생성
-  V = int(input())
-  edges = list(map(int, input().split()))
+  # 정점의 갯수와 간선 리스트를 받고, 트리 생성
+  V = 13
+  edges = [1, 2, 1, 3, 2, 4, 3, 5, 3, 6, 4, 7, 5, 8, 5, 9, 6, 10, 6, 11, 7, 12, 11, 13]
   E = V - 1
   left = [0] * (V + 1)
   right = [0] * (V + 1)
@@ -94,6 +94,18 @@
   while par[c]:
       print(par[c], end=' ')
       c = par[c]
+      
+  '''
+  [출력]
+  전위 순회
+  1 2 4 7 12 3 5 8 9 6 10 11 13 
+  중위 순회
+  12 7 4 2 1 8 5 9 3 10 6 13 11 
+  후위순회
+  12 7 4 2 8 9 5 10 13 11 6 3 1 
+  조상 찾기
+  3 1
+  '''
   ```
 
 ####  표현
