@@ -9,7 +9,7 @@
 * stack과 마찬가지로 삽입과 삭제의 위치가 제한적인 자료구조
 * FIFO
   * 머리인 `front`와 꼬리인 `rear`로 이뤄진다.
-  * `front` : 마지막 삭제 위치
+  * `front` : 마지막 삭제 위치 (or 저장된 원소 중 첫 번째 원소)
   * `rear` : 마지막 저장 위치
 
 <br>
@@ -60,7 +60,7 @@ def isEmpty():
 def Full():
 	return rear == len(Q) - 1
 
-# 5. 검색
+# 5. 가장 앞에 있는 원소 검색/반환
 def Qpeek():
 	if isEmpty():
 		print("Queue Empty")
@@ -82,11 +82,84 @@ def Qpeek():
 * 매 연산이 이루어질 때마다 저장된 원소들을 한 칸씩 앞으로 이동시킴 -> 원소 이동에 많은 시간 소요 -> 효율성 급감
 * 1차원 배열을 사용하되, 논리적으로는 처음과 끝이 연결되어 원형 형태의 큐를 이룬다고 가정
 
+#### [Python 실습] 함수 만들지 않고 데이터 삽입/삭제
+
+1. 특정 크기의 빈 리스트 - 가장 빠름
+
+   ```python
+   Q = [0] * 10    # 10칸 짜리 큐
+   front = -1
+   rear = -1
+   
+   rear += 1
+   Q[rear] = 1     # enQueue(1)
+   rear += 1
+   Q[rear] = 2     # enQueue(2)
+   rear += 1
+   Q[rear] = 3     # enQueue(3)
+   
+   while front != rear:
+       front += 1
+       print(Q[front], end=' ')    # deQueue()
+       print(Q, front, rear)
+   
+   '''
+   [출력]
+   1 [1, 2, 3, 0, 0, 0, 0, 0, 0, 0] 0 2
+   2 [1, 2, 3, 0, 0, 0, 0, 0, 0, 0] 1 2
+   3 [1, 2, 3, 0, 0, 0, 0, 0, 0, 0] 2 2
+   '''
+   ```
+
+2. deque - 중간 빠름
+
+   ```python
+   from collections import deque
+   
+   # enqueue -> append
+   q = deque()
+   q.append(1)
+   q.append(2)
+   q.append(3)
+   
+   # dequeue -> popleft
+   while q:
+       print(q.popleft(), end=' ')
+       print(q)
+   
+   '''
+   [출력]
+   1 deque([2, 3])
+   2 deque([3])
+   3 deque([])
+   '''
+   ```
+
+3. 빈 리스트 - 가장 느림
+
+   ```python
+   listQ = []
+   listQ.append(1)
+   listQ.append(2)
+   listQ.append(3)
+   
+   while listQ:
+       print(listQ.pop(0), end=' ')
+       print(listQ)
+   
+   '''
+   [출력]
+   1 [2, 3]
+   2 [3]
+   3 []
+   '''
+   ```
+
 <br>
 
 ### 원형큐
 
-* 초기 공백 상태 : `front = 0; rear = 0`
+* 초기 공백 상태 : `front = rear = 0`
 * index의 순환 : 나머지 연산자 `mod`를 사용
 * `front` : 공백 상태와 포화 상태 구분을 쉽게 하기 위해 `front`가 있는 자리는 사용하지 않고 빈자리로 둠
   * 포화 상태 : `front = (rear + 1) % len(queue)`
@@ -94,14 +167,20 @@ def Qpeek():
 #### 구현
 
 ```python
-# 1. 공백 및 포화 상태 검사
+# 1. 공백 큐 생성
+def createQueue():
+	cQ = [0] * 100
+	front = 0
+	rear = 0
+
+# 2. 공백 및 포화 상태 검사
 def isEmpty():
 	return front == rear
 def isFull():
 	# 삽입할 rear의 다음 위치 = 현재 front
 	return (rear + 1) % len(cQ) == front
 
-# 2. 삽입
+# 3. 삽입
 def enQueue(item):
 	global rear
 	if isFull():
@@ -111,11 +190,11 @@ def enQueue(item):
 		# 2. 오래 있었던 애들 위에 덮어씀
 		# 파이참의 콘솔버퍼는 cyclic queue라서 콘솔 입력이 1MB 이상이면 앞부터 덮어씀
 	else:
-		rear = (rear + 1) % len(Q)
-		cQ[rear]
+		rear = (rear + 1) % len(cQ)
+		cQ[rear] = item
 
-# 3. 삭제
-# 3-1. front 값을 조정하여 삭제할 자리를 준비
+# 4. 삭제
+# 4-1. front 값을 조정하여 삭제할 자리를 준비
 def deQueue():
 	global front
 	if isEmpty():
@@ -123,7 +202,7 @@ def deQueue():
 	else:
 		front = (front + 1) % len(cQ)
 		return cQ[front]
-# 3-2. 새로운 front 원소를 리턴하여 삭제와 동일한 기능 (return만 없음)
+# 4-2. 새로운 front 원소를 리턴하여 삭제와 동일한 기능 (return만 없음)
 def delete():
 	global front
 	if isEmpty():
@@ -146,12 +225,61 @@ def delete():
 * `front` : 첫 번째 노드를 가리키는 링크
 * `rear` : 마지막 노드를 가리키는 링크
 
+#### 구현
+
+```python
+class Node:
+    def __init__(self, item, n=None):
+        self.item = item
+        self.next = n
+
+# 1. 원소 삽입
+def enQueue(item):
+    global front, rear
+    newNode = Node(item)    # 새로운 노드 생성
+    if front == None:       # 큐가 비어있다면
+        front = newNode
+    else:
+        rear.next = newNode
+    rear = newNode
+
+# 2. 공백 상태 검사
+def isEmpty():
+    return front == None
+
+# 3. 원소 반환/삭제
+def deQueue():
+    global front, rear
+    if isEmpty():
+        print("Queue Empty")
+        return None
+
+    item = front.item
+    front = front.next
+    if front == None:
+        rear = None
+    return item
+
+# 4. 첫 번째 원소 삭제 없이 반환
+def Qpeek():
+    return front.item
+
+# 5. 모든 원소를 공백으로 구분된 문자열로 반환
+def printQ():
+    f = front
+    s = ''
+    while f:
+        s += f.item + ' '
+        f = f.next
+    return s
+```
+
 <br>
 
 ### 우선순위 큐
 
 * 우선순위를 가진 항목들을 저장하는 큐
-* FIFIO가 아니라, 우선순위가 높은 순서대로 먼저 나간다.
+* FIFO가 아니라, 우선순위가 높은 순서대로 먼저 나간다.
 
 #### 배열/리스트를 이용한 우선순위 큐
 
@@ -171,7 +299,7 @@ def delete():
 
 * 데이터를 한 곳에서 다른 한 곳으로 전송하는 동안 일시적으로  그 데이터를 보관하는 데이터 영역
 * buffering : 버퍼를 활용하는 방식 혹은 버퍼를 채우는 동작
-* 큐를 활용하여 구현할 수 있다.
+* FIFO 방식인 큐를 활용하여 구현할 수 있다.
 
 <br>
 
