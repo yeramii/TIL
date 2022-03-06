@@ -191,7 +191,7 @@ def enQueue(item):
 		# 파이참의 콘솔버퍼는 cyclic queue라서 콘솔 입력이 1MB 이상이면 앞부터 덮어씀
 	else:
 		rear = (rear + 1) % len(cQ)
-		cQ[rear] = item
+		cQ[rear] = item 
 
 # 4. 삭제
 # 4-1. front 값을 조정하여 삭제할 자리를 준비
