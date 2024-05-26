@@ -315,22 +315,22 @@ def printQ():
 # G: 그래프, v: 시작점, N: 정점 개수
 def BFS(G, v):
     # 큐 생성후, 시작점 enqueue
-	visited = [0] * (N + 1)
-	queue = []
-	queue.append(start)
+    visited = [0] * (N + 1)
+    queue = []
+    queue.append(start)
     # 큐가 비어있지 않다면
 	while queue:
-        # 첫 번째 원소 dequeue
-		v = queue.pop(0)
-        # 방문되지 않은 경우, 표시하고 할 일 함
-		if not visited[v]:
+            # 첫 번째 원소 dequeue
+            v = queue.pop(0)
+            # 방문되지 않은 경우, 표시하고 할 일 함
+            if not visited[v]:
             visited[v] = True
-			visit(v)
+		visit(v)
             # v에 연결된 모든 정점에 대해, 방문되지 않은 것 enqueue하고 방문(거리) 표시
-			for w in G[v]:
-				if not visited[w]:
-                    queue.append(w)
-                    visited[w] = visited[v] + 1
+		for w in G[v]:
+                    if not visited[w]:
+                        queue.append(w)
+                    	visited[w] = visited[v] + 1
 ```
 
 
