@@ -10,14 +10,29 @@
 * 레벨 i에서 노드의 최대 개수는 2^i 개
 * 높이 h인 이진 트리가 가질 수 있는 노드의 최소 개수는 h+1 개이며, 최대 개수는 2^(h+1)-1 개 이다.
 
+#### 특징
+
+* 루트 노드는 하나이다.
+* 트리에는 사이클 및 루프가 존재할 수 없다. (시작 노드에서 출발해 다시 돌아올 수 있으면 사이클이 존재한다고 함)
+
+  ![img](tree.assets/img-cycleloop.png)
+
 #### 종류
 
 * 포화 이진 트리 (Full Binary Tree)
+
+  ![img](tree.assets/img-fullbinarytree.png)
+
   * 모든 레벨에 노드가 포화 상태로 차있는 트리
-  * root를 1번으로 하여 2^(h+1)-1까지 정해진 위치에 대한 노드 번호를 가짐
+  * root를 1번으로 하여 2^(h+1)-1까지 정해진 위치에 대한 노드 번호를 가짐   
+
 * 완전 이진 트리 (Complete Binary Tree)
 
+  ![img](tree.assets/img-completebinarytree.png)
+
   * 포화 이진 트리의 노드 번호 1번부터 n번까지 빈 자리가 없는 이진 트리 (h+1 <= n < 2^(h+1)-1)
+  * 노트는 왼쪽에서 오른쪽으로 채워져야 한다.   
+
 * 편향 이진 트리 (Skewed Binary Tree)
 
   * 높이 h에 대한 최소 개수의 노드를 가지면서 한쪽 방향의 자식 노드만을 가진 이진 트리
@@ -144,15 +159,86 @@
 
 완전 이진 트리에 있는 노드 중에서 키값이 가장 큰 노드나 키값이 가장 작은 노드를 찾기 위해 만든 자료구조
 
-#### 최대 힙 (max heap)
-
-* 키값이 가장 큰 노드를 찾기 위한 완전 이진 트리
-* {부모노드의 키값 > 자식노드의 키값}
-* 루트 노드 : 키값이 가장 큰 노드
+* 힙(heap)의 키(key)를 우선순위(priority)로 사용하면, 우선순위 큐(priorty queue)의 구현체로 사용 가능
+* 일반적으로 배열을 이용하여 구현
 
 #### 최소 힙 (min heap)
 
 * 키값이 가장 작은 노드를 찾기 위한 완전 이진 트리
 * {부모노드의 키값 < 자식노드의 키값}
 * 루트 노드 : 키값이 가장 작은 노드
+* 구현
 
+  ```python
+  # python에서 제공하는 최소 힙 라이브러리 (heqpq)
+  #   heapq.heappush(heap, item) : item을 heap에 추가
+  #   heapq.heappop(heap) : heap에서 가장 작은 원소를 pop & return. 비어있는 경우 IndexError 호출
+  #   heapq.heapify(lst) : list를 heap으로 변환 (O(N))
+  import heapq
+
+  def heapsort(iterable):
+    h = []
+    result = []
+
+    # 모든 원소 삽입
+    for value in iterable:
+      heapq.heappush(h, value)
+
+    # 모든 원소 꺼내기
+    for _ in range(len(h)):
+      result.append(heapq.heappop(h))
+    
+    return result
+
+  arr = [3, 2, 5, 4, 7, 1]
+  res = heapsort(arr)
+  print(res)  # [1, 2, 3, 4, 5, 7]
+  ```
+
+#### 최대 힙 (max heap)
+
+* 키값이 가장 큰 노드를 찾기 위한 완전 이진 트리
+* {부모노드의 키값 > 자식노드의 키값}
+* 루트 노드 : 키값이 가장 큰 노드
+* 구현
+
+  ```python
+  import heapq
+
+  def heapsort(iterable):
+    h = []
+    result = []
+
+    # 모든 원소 삽입 (가짜 순위, 실제 순위)
+    # -> 가짜 순위를 기준으로 최소 힙 구성
+    for value in iterable:
+      heapq.heappush(h, (-value, value))
+
+    # 모든 원소 꺼내기 (실제 순위만 append)
+    for _ in range(len(h)):
+      result.append(heapq.heappop(h)[1])
+    
+    return result
+
+  arr = [3, 2, 5, 4, 7, 1]
+  res = heapsort(arr)
+  print(res)  # [7, 5, 4, 3, 2, 1]
+  ```
+
+#### 최소 힙 (우선순위 큐)의 데이터 삽입/삭제
+
+* 삽입
+
+  1. 새 노드를 마지막 노드 뒤에 추가
+  2. 새 노드와 부모 노드의 키값을 비교해서 부모 노드보다 키값이 작으면 위치 교환
+  3. 정상적인 힙트리가 될 때까지 (더이상 부모 노드와 교환할 필요가 없을 때) 2. 반복
+
+* 삭제
+
+  1. 루트 노드를 반환
+  2. 마지막 노드를 루트 노드 자리로 이동
+  3. 새로운 루트 노드의 좌/우 자식 노드 중 키값이 작은 값과 비교하며 위치 교환
+  4. 정상적인 힙트리가 될 때까지 (더이상 자식 노드와 교환할 필요가 없을 때) 3. 반복
+
+* worst case
+    * 루트 노드 or 마지막 노드까지 비교하며 올라가는 경우, O(log_2 n) 
