@@ -242,3 +242,46 @@
 
 * worst case
     * 루트 노드 or 마지막 노드까지 비교하며 올라가는 경우, O(log_2 n) 
+
+
+
+### 구간 트리 (Segment Tree)
+
+* 리프 노드 : 배열의 그 수 자체
+* 다른 노드 : 왼쪽 자식과 오른쪽 자식의 합
+* N=10 인 경우 세그먼트 트리
+  ![img](tree.assets/img-segmenttree.png)
+
+* 노드 번호
+  ![img](tree.assets/img-segmenttreenum.png)
+  
+  * N이 2의 제곱꼴인 경우, Full Binary Tree
+    * 그 때의 높이는 logN
+    * 리프 노드가 N개인 Full Binary Tree는 필요한 노드의 개수가 2*N-1
+  
+
+#### 합 구하기
+
+* 구간 left, right가 주어졌을 때, 루트부터 트리를 순회하며 각 노드가 담당하는 구간과 left, right 사이의 관계를 살핌
+* ex) 2~4까지의 합을 구하는 경우
+  ![img](tree.assets/img-segmenttreesum.png)
+* node가 담당하는 구간이 `[start, end]` 이고, 합을 구해야 하는 구간이 `[left, right]`라면, 다음과 같이 4가지 경우로 나뉨
+  1. `[left, right]`와 `[start, end]`가 겹치지 않는 경우
+  2. `[left, right]`가 `[start, end]`를 완전히 포함하는 경우
+  3. `[start, end]`가 `[left, right]`를 완전히 포함하는 경우
+  4. `[left, right]`와 `[start, end]`가 겹쳐져 잇는 경우 (1, 2, 3을 제외한 나머지 경우)
+
+#### 수 변경하기
+
+* 중간에 어떤 수를 변경한다면, 그 숫자가 포함된 구간을 담당하는 노드를 모두 변경해야 함
+* ex) 3번째 수를 변경할 시, 변경이 필요한 구간
+  ![img](tree.assets/img-segmenttreechange.png)
+* 순서
+  * `index` 번째 수를 `val`로 변경하면, 그 수가 얼만큼 변했는지 알아야 함
+    * 이 수를 `diff`라고 하면, `diff = val - a[index]` 로 쉽게 구할 수 있음
+  * node의 구간에 포함되는 경우에는 `diff`만큼 증가시켜 합을 변경
+    * `tree[node] = tree[node] + diff`
+    * 포함되지 않는 경우, 그 자식도 `index`가 포함되지 않으므로 탐색 중단
+* 2가지 경우 존재
+  1. `[start, end]`에 `index`가 포함되는 경우
+  2. `[start, end]`에 `index`가 포함되지 않는 경우
